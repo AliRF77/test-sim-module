@@ -54,7 +54,6 @@ func clearFile(w http.ResponseWriter, r *http.Request) {
 		panic(err)
 	}
 
-	w.Header().Add("Content-Type", "application/text")
 	w.WriteHeader(http.StatusOK)
 }
 
@@ -70,6 +69,6 @@ func main() {
 	r.Use(middleware.Heartbeat("/ping"))
 	r.Get("/read", readFile)
 	r.Post("/write", writeFile)
-	r.Post("/clear", clearFile)
+	r.Delete("/clear", clearFile)
 	http.ListenAndServe(":"+port, r)
 }
