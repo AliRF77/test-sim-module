@@ -23,10 +23,8 @@ func readFile(w http.ResponseWriter, r *http.Request) {
 }
 
 func writeFile(w http.ResponseWriter, r *http.Request) {
-	responseData, err := ioutil.ReadAll(r.Body)
-	if err != nil {
-		log.Fatal(err)
-	}
+	r.ParseForm()
+	value := r.FormValue("temp")
 
 	f, err := os.OpenFile("localfile.txt", os.O_CREATE|os.O_APPEND|os.O_WRONLY, 0600)
 	if err != nil {
@@ -34,7 +32,7 @@ func writeFile(w http.ResponseWriter, r *http.Request) {
 	}
 	defer f.Close()
 
-	if _, err = f.WriteString(string(responseData)); err != nil {
+	if _, err = f.WriteString(value); err != nil {
 		panic(err)
 	}
 
