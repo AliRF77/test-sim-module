@@ -54,14 +54,8 @@ func clearFile(w http.ResponseWriter, r *http.Request) {
 		panic(err)
 	}
 
-	data, err := ioutil.ReadFile("localfile.txt")
-	if err != nil {
-		fmt.Println(err)
-	}
-
 	w.Header().Add("Content-Type", "application/text")
 	w.WriteHeader(http.StatusOK)
-	w.Write([]byte(string(data)))
 }
 
 func main() {
