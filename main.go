@@ -68,6 +68,7 @@ func main() {
 	r.Use(middleware.Logger)
 	r.Use(middleware.Heartbeat("/ping"))
 	r.Get("/read", readFile)
+	r.HandleFunc("/temp", readFile)
 	r.Post("/write", writeFile)
 	r.Delete("/clear", clearFile)
 	http.ListenAndServe(":"+port, r)
